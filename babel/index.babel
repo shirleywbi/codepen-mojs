@@ -1,0 +1,85 @@
+/* Live coding tutorial on Coding Train with Sarah Drasner: https://www.youtube.com/watch?v=yRxWa8lXasI&t=0s&index=5&list=PLRqwX-V7Uu6bYBG4PsCJpsvMka3boE9pR*/
+const burst = new mojs.Burst({
+  left: 0, top: 0,
+  radius: { 0: 100 },
+  count: 20,
+  isShowEnd: false,
+  children : {
+    shape: 'cross',
+    stroke: 'teal',
+    strokeWidth: { 6: 0},
+    angle: { 360: 0},
+    radius: { 30: 5 },
+    duration: 3000,
+    isForce3d: true
+  }  
+});
+
+const burst2 = new mojs.Burst({
+  left: 0, top: 0,
+  radius: { 0: 200 },
+  count: 12,
+  isShowEnd: false,
+  children : {
+    shape: 'zigzag',
+    points: 7,
+    stroke: 'pink',
+    fill: 'none',
+    strokeWidth: { 6: 0},
+    angle: { '-360': 0},
+    radius: { 30: 5 },
+    opacity: { 1: 0},
+    duration: 3000,
+    isForce3d: true
+  }  
+});
+
+const burst3 = new mojs.Burst({
+  left: 0, top: 0,
+  radius: { 0: 200 },
+  count: 5,
+  isShowEnd: false,
+  children : {
+    fill: 'purple',
+    points: 7,
+    angle: { '-360': 0},
+    radius: { 10: 5 },
+    opacity: { 1: 0},
+    duration: 3000,
+    isForce3d: true
+  }  
+});
+
+const circ_opt = {
+  left: 0, top: 0,
+  radius: {0: 200},
+  fill: 'none',
+  stroke: 'yellow',
+  opacity: {1: 0},
+  duration: 3500,
+  isForce3d: true,
+  isShowEnd: false
+};
+
+const circ = new mojs.Shape({
+  ...circ_opt
+});
+
+const circ2 = new mojs.Shape({
+  ...circ_opt,
+  delay: 500
+});
+
+const timeline = new mojs.Timeline();
+timeline
+  .add(burst, burst2, burst3, circ, circ2)
+
+document.addEventListener( 'click', function (e) {
+  const x = e.pageX,
+        y = e.pageY;
+  
+  const coords = { x, y };
+  burst.tune(coords); burst2.tune(coords); burst3.tune(coords);
+  circ.tune(coords); circ2.tune(coords);
+  timeline.replay();
+});
